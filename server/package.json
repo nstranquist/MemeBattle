@@ -19,7 +19,9 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "http": "^0.0.1-security",
-    "mongoose": "^5.9.15",
+    "md5": "^2.2.1",
+    "mongodb": "^3.5.7",
+    "nodemon": "^2.0.4",
     "socket.io": "^2.3.0"
   }
 }

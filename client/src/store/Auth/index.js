@@ -1,5 +1,7 @@
 /* src/store/Auth/index.js */
 
+import { dispatch } from 'thunk'
+
 // Auth Types
 const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS'
 const SIGNUP_FAILURE = 'SIGNUP_FAILURE'
@@ -11,28 +13,54 @@ const LOGIN_LOADING = 'LOGIN_LOADING'
 
 const LOGOUT = 'LOGOUT'
 
+const loginError = (err) => ({
+  type: LOGIN_FAILURE,
+  err
+})
+const signupError = (err) => ({
+  type: SIGNUP_FAILURE,
+  err
+})
 
 // Auth Action Creators
-export const login = (username, password) => {
+export const login = (dispatch) => (username, password) => {
   console.log('tried to login with username:', username, 'and password:', password)
 
   dispatch({ type: LOGIN_LOADING })
 
   // run api call, etc., to validate login
-
-  // then authenticate with:
-  dispatch({ type: LOGIN_SUCCESS })
+  fetch(baseURL + '/login', {
+    method : 'POST',
+    headers: {'Content-Type':'application/x-www-form-urlencoded'},
+    body: 'user=' + user.toString() + '&' + 'pass=' + pass.toString()
+  })
+    .then( res => res.json())
+    .then(json => {
+      dispatch({ type: LOGIN_SUCCESS })
+    })
+    .catch(err => dispatch({ type: LOGIN_FAILURE, err }))
 }
 
-export const signup = (username, password) => {
+export const signup = (dispatch) => (username, password) => {
   console.log('tried to sign up with username:', username, 'and password:', password)
 
   dispatch({ type: SIGNUP_LOADING })
 
   // run api call, etc., to validate login
-
-  // then authenticate with:
-  dispatch({ type: SIGNUP_SUCCESS })
+  fetch(baseURL + '/signup', {
+    method : 'POST',
+    headers: {'Content-Type':'application/x-www-form-urlencoded'},
+    body: 'user=' + username.toString() + '&' + 'pass=' + password.toString()
+})
+    .then( res => res.json())
+    .then(json => {
+      console.log('json response:', json.stringify())
+      dispatch({ type: SIGNUP_SUCCESS })
+    })
+    .catch(err => {
+        console.log('error:', err)
+        dispatch({ type: SIGNUP_FAILURE, err })
+    })
 }
 
 export const logout = () => {
@@ -73,6 +101,7 @@ export default (
     case SIGNUP_SUCCESS:
       return {
         ...state,
+        signedIn: true,
         loading: false,
         errors: null
       }

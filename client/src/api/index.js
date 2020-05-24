@@ -4,18 +4,22 @@ const giphyURL = 'https://api.giphy.com/v1/gifs'
 const giphyKey = 'nTrx5uhPTyTJrSuSRYBt8etVXyRHLZCs'
 
 //!! Sign Up
-async function signUp(user, pass){
+export async function signUp(user, pass){
     fetch(baseURL + '/signup', {
         method : 'POST',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
         body: 'user=' + user.toString() + '&' + 'pass=' + pass.toString()
     })
         .then( res => res.json())
-        .then(json => console.log(json))
+        .then(json => {
+            console.log(json)
+            return json
+        })
+
 }
 
 //!! Login
-async function login(user, pass){
+export async function login(user, pass){
     fetch(baseURL + '/login', {
         method : 'POST',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
@@ -26,26 +30,23 @@ async function login(user, pass){
 }
 
 //!! Get User Collection
-async function userCollection(user){
+export async function userCollection(user){
     fetch(baseURL + '/collection/' + user.toString())
         .then( res => res.json())
         .then( json => console.log(json))
 }
 
 //!! Get Prompt
-async function getPrompt(promptID){
+export async function getPrompt(promptID){
     fetch(baseURL + '/prompt/' + promptID.toString())
     .then( res => res.json())
     .then( json => {
         console.log(json)
-        const m = document.createTextNode(json.prompt)
-        const d = document.getElementById('prompt').appendChild(m)
-        console.log(d)
     })
 }
 
 //!! User Win
-async function userWin(user, gifID){
+export async function userWin(user, gifID){
     // Post
     fetch(baseURL + '/win', {
         method : 'POST',
@@ -57,7 +58,7 @@ async function userWin(user, gifID){
 }
 
 // Get Random GIF
-async function randomGIF(){
+export async function randomGIF(){
     // Build a URL
     const url = giphyURL + '/random?api_key=' + giphyKey + '&rating=R'
     fetch(url).then( res => {
@@ -76,7 +77,7 @@ async function randomGIF(){
 }
 
 // GIF Search
-async function searchGIF(query){
+export async function searchGIF(query){
     // Build a URL
     const url = giphyURL + '/search?api_key=' + giphyKey + '&q=' + query.toString() + '&limit=20&offset=0&rating=R&lang=en'
     fetch(url)
@@ -98,7 +99,7 @@ async function searchGIF(query){
 }
 
 // Get Array of GIFs (gifIDs must be an array)
-async function arrayGIF(gifIDs){
+export async function arrayGIF(gifIDs){
     // Build a URL
     const url = giphyURL + '?api_key=' + giphyKey + '&ids=' + gifIDs.join(',')
     console.log(url)

@@ -1,6 +1,6 @@
 ## Meme Battle (Online)
 
-<pitch here>
+pitch here
   
 ### Description
 

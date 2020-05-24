@@ -8,7 +8,7 @@ Nico Stranquist `@nstranquist`
 Branson Fox `@bransonf`
 Conor Kolmer `@kolmercm`
 
-Together we are glad to be a part of this Open Hacks event and we thinkwe have created something you as the user, will enjoy. MemeBattle. Online isa mobile app for iOS and Android users who are looking to collect all the memes! They will be prompted to create a username and password and thenfrom there, they can join a game or view their previous collection of winning memes. Once a game is joined, one player will be named the judge and the others will be given a collection of memes to search from. Once all the memes have been sent in the judge will pick the winner who will have the winning card added to his “collection”. To create this app as a team we experimented with these technologies: Figma, atlas, express.js, giphysearch, JavaScript, mongodb, node.js, python, react-native ,redux, and socket.io.
+Together we are glad to be a part of this Open Hacks event and we think we have created something you as the user, will enjoy. MemeBattle (Online) is a mobile app for iOS and Android users who are looking to collect all the memes! They will be prompted to create a username and password and thenfrom there, they can join a game or view their previous collection of winning memes. Once a game is joined, one player will be named the judge and the others will be given a collection of memes to search from. Once all the memes have been sent in the judge will pick the winner who will have the winning card added to his “collection”. To create this app as a team we experimented with these technologies: Figma, atlas, express.js, giphysearch, JavaScript, mongodb, node.js, python, react-native ,redux, and socket.io.
 
 ### Technologies Used
 

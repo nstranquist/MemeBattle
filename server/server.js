@@ -55,7 +55,7 @@ client.connect(err => {
     users.findOne({user : user, pass : pass}, {projection: {token : 1, _id : 0}}).then( data => {
       const token = data;
       if (token){
-        res.status(201).json({message : 'Login Success', token : token['token']})
+        res.status(201).json({message : 'Login Success', token : token['token'], user })
       }else{
         res.status(400).json({message : 'Wrong Username or Password'})
       }
@@ -69,7 +69,7 @@ client.connect(err => {
       if (!data){
         res.status(400).json({message : 'User Does not Exist'})
       }else{
-        res.status(200).json({message : 'Success', n : data.wins.length, wins : data['wins']})
+        res.status(200).json({message : 'Success', n : data.wins.length, wins : data['wins'].reverse()})
       }
     })
   })
@@ -151,6 +151,6 @@ io.on('serverEvent', () => {
 
 // Listen 
 // const port = process.env.PORT || 3000;
-server.listen(3000, () => {
-    console.log("Server is listening on port 3000");
+server.listen(80, () => {
+    console.log("Server is listening on port 80");
 });

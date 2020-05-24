@@ -1,6 +1,6 @@
 /* src/store/Auth/index.js */
 
-import { dispatch } from 'thunk'
+import { apiConfig } from '../../utils/api.config'
 
 // Auth Types
 const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS'
@@ -12,64 +12,79 @@ const LOGIN_FAILURE = 'LOGIN_FAILURE'
 const LOGIN_LOADING = 'LOGIN_LOADING'
 
 const LOGOUT = 'LOGOUT'
+const CLEAR_ERRORS = 'CLEAR_ERRORS'
 
 const loginError = (err) => ({
   type: LOGIN_FAILURE,
-  err
+  err,
 })
+
 const signupError = (err) => ({
   type: SIGNUP_FAILURE,
-  err
+  err,
 })
 
 // Auth Action Creators
-export const login = (dispatch) => (username, password) => {
-  console.log('tried to login with username:', username, 'and password:', password)
-
+export const login = (username, password) => (dispatch) => {
   dispatch({ type: LOGIN_LOADING })
 
-  // run api call, etc., to validate login
-  fetch(baseURL + '/login', {
-    method : 'POST',
-    headers: {'Content-Type':'application/x-www-form-urlencoded'},
-    body: 'user=' + user.toString() + '&' + 'pass=' + pass.toString()
-  })
-    .then( res => res.json())
-    .then(json => {
-      dispatch({ type: LOGIN_SUCCESS })
-    })
-    .catch(err => dispatch({ type: LOGIN_FAILURE, err }))
-}
-
-export const signup = (dispatch) => (username, password) => {
-  console.log('tried to sign up with username:', username, 'and password:', password)
-
-  dispatch({ type: SIGNUP_LOADING })
-
-  // run api call, etc., to validate login
-  fetch(baseURL + '/signup', {
+  // run api call, to validate login
+  fetch(apiConfig.baseURL + '/login', {
     method : 'POST',
     headers: {'Content-Type':'application/x-www-form-urlencoded'},
     body: 'user=' + username.toString() + '&' + 'pass=' + password.toString()
-})
-    .then( res => res.json())
-    .then(json => {
-      console.log('json response:', json.stringify())
-      dispatch({ type: SIGNUP_SUCCESS })
+  })
+    .then(res => {
+      console.log('made it to res', res)
+      if(res.status < 400)
+        return res.json()
+      else
+        dispatch({ type: SIGNUP_FAILURE, err: `${res.status} error code` })
+    })
+    .then(data => {
+      console.log('username in response:', data.user)
+      dispatch({ type: LOGIN_SUCCESS, username: data.user })
     })
     .catch(err => {
-        console.log('error:', err)
-        dispatch({ type: SIGNUP_FAILURE, err })
+      dispatch({ type: LOGIN_FAILURE, err: "error logging in from server" })
+    })
+
+  // dispatch({ type: LOGIN_SUCCESS })
+}
+
+export const signup = (username, password) => (dispatch) => {
+  dispatch({ type: SIGNUP_LOADING })
+
+  // run api call, to validate login
+  fetch(apiConfig.baseURL + '/signup', {
+    method : 'POST',
+    headers: {'Content-Type':'application/x-www-form-urlencoded'},
+    body: 'user=' + username.toString() + '&' + 'pass=' + password.toString()
+  })
+    .then(res => {
+      console.log('made it to res:', res)
+      if(res.status < 400)
+        dispatch({ type: SIGNUP_SUCCESS })
+      else
+        dispatch({ type: SIGNUP_FAILURE, err: `${res.status} error code` })
+    })
+    .catch(err => {
+      // console.log('error:', err.stringify())
+      dispatch({ type: SIGNUP_FAILURE, err: "error signing up from server" })
     })
 }
 
-export const logout = () => {
-  dispatch({ type: LOGOUT })
-}
+export const logout = () => ({
+  type: LOGOUT
+})
+export const clearErrors = () => ({
+  type: CLEAR_ERRORS
+})
 
 
 // Auth Reducer
 const initialState = {
+  username: "",
   signedIn: false,
   loading: false,
   errors: null
@@ -89,6 +104,7 @@ export default (
       return {
         ...state,
         signedIn: true,
+        username: action.username,
         loading: false,
         errors: null
       }
@@ -114,8 +130,14 @@ export default (
     case LOGOUT:
       return {
         ...state,
+        signedIn: false,
         loading: false,
-        signedIn: false
+        errors: null
+      }
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        errors: null
       }
     default:
       return state;

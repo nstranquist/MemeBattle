@@ -6,20 +6,21 @@ import { StyleSheet, SafeAreaView, View, TextInput, Text, TouchableOpacity } fro
 import { ErrorText } from '../../components/ErrorText'
 import { appColors } from '../../utils/app.colors'
 // import redux
-import { signup } from '../../store/Auth'
+import { signup, clearErrors } from '../../store/Auth'
 
 
 const emptySignUpForm = {
-  email: '',
-  password: '',
-  confirmPassword: '',
+  username: 'Nicostran',
+  password: 'Demodemo',
+  confirmPassword: 'Demodemo',
 }
 
 export const SignUp = ({
   navigation,
   loading,
   errors,
-  signup
+  signup,
+  clearErrors,
 }) => {
   const [formData, setFormData] = useState(emptySignUpForm)
   const [formErrors, setFormErrors] = useState(null)
@@ -41,18 +42,20 @@ export const SignUp = ({
     console.log('formData:', formData)
     const { username, password, confirmPassword } = formData
 
-    if(password !== confirmPassword)
+    if(username.length < 1 || password.length < 1)
+      setFormErrors("username or password is empty")
+    else if(password !== confirmPassword)
       setFormErrors('passwords must match')
-    // else if() { ... }
     else {
       signup(username, password)
-      resetForm()
+      // resetForm()
     }
   }
   
   const resetForm = () => {
     setFormData(emptySignUpForm)
     setFormErrors(null)
+    clearErrors()
   }
   
   return (
@@ -122,7 +125,7 @@ const mapStateToProps = (state) => ({
 
 export const ConnectedSignUp = connect(
   mapStateToProps,
-  { signup }
+  { signup, clearErrors }
 )(SignUp)
 
 

@@ -1,5 +1,9 @@
 import { Battle } from './Battle'
+import { BattleLobby } from './BattleLobby'
+import { BattleResults } from './BattleResults'
 
 export {
-  Battle, 
+  Battle,
+  BattleLobby,
+  BattleResults
 }

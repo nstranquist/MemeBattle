@@ -9,18 +9,19 @@ import { StyleSheet, SafeAreaView, View, Text, TextInput, TouchableOpacity } fro
 import { ErrorText } from '../../components/ErrorText'
 import { appColors } from '../../utils/app.colors'
 
-import { login } from '../../store/Auth'
+import { login, clearErrors } from '../../store/Auth'
 
 const emptyLoginForm = {
-  username: "",
-  password: ""
+  username: "Nicostran",
+  password: "Demodemo"
 }
 
 const Login = ({
   navigation,
   loading,
   errors,
-  login
+  login,
+  clearErrors,
 }) => {
   const [loginForm, setLoginForm] = useState(emptyLoginForm)
   const [formErrors, setFormErrors] = useState(null) // errors from local state
@@ -42,13 +43,18 @@ const Login = ({
     const {username, password} = loginForm
 
     // if(...) { setFormErrors("example error message") }
-
-    login(username, password)
+    if(username.length < 1 || password.length < 1)
+      setFormErrors('username or password cannot be empty')
+    else {
+      login(username, password)
+      // resetForm()
+    }
   }
 
   const resetForm = () => {
     setLoginForm(emptyLoginForm)
     setFormErrors(null)
+    clearErrors()
   }
   
   return (
@@ -70,6 +76,7 @@ const Login = ({
           <View style={styles.loginInput}>
             <Text style={styles.inputLabel}>Password</Text>
             <TextInput
+              textContentType="password"
               style={styles.textInput}
               value={loginForm.password}
               onChangeText={text => handleChange(text, "password")}
@@ -110,7 +117,7 @@ const mapStateToProps = (state) => ({
 
 export const ConnectedLogin = connect(
   mapStateToProps,
-  { login }
+  { login, clearErrors }
 )(Login)
 
 const styles = StyleSheet.create({

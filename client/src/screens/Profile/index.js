@@ -1,4 +1,4 @@
-import { Profile } from './Profile'
+import { ConnectedProfile as Profile } from './Profile'
 
 export {
   Profile, 

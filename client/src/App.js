@@ -14,7 +14,7 @@ import { configureStore } from './store'
 // import screen components
 import { Home } from './screens/Home'
 import { Profile } from './screens/Profile'
-import { Battle } from './screens/Battle'
+import { Battle, BattleLobby, BattleResults } from './screens/Battle'
 import { Login, SignUp, AuthMenu } from './screens/Auth'
 
 
@@ -23,10 +23,10 @@ const AppStack = createStackNavigator();
 const BattleStack = createStackNavigator();
 
 const BattleStackNav = () => (
-  <BattleStack.Navigator>
-    {/* <BattleStack.Screen name="Lobby" component={Lobby} /> */}
+  <BattleStack.Navigator initialRouteName="Battle" headerMode="none">
+    <BattleStack.Screen name="BattleLobby" component={BattleLobby} />
     <BattleStack.Screen name="Battle" component={Battle} />
-    {/* <BattleStack.Screen name="Results" component={Results} /> */}
+    <BattleStack.Screen name="BattleResults" component={BattleResults} />
   </BattleStack.Navigator>
 )
 
@@ -36,10 +36,12 @@ const App = ({
   return (
     <NavigationContainer>
       {signedIn ? (
-        <AppStack.Navigator>
+        <AppStack.Navigator screenOptions={{headerStyle:{borderBottomWidth:0,elevation:0}}}>
+          {/* headerBackground */}
           <AppStack.Screen name="Home" component={Home} />
           <AppStack.Screen name="Profile" component={Profile} />
           <AppStack.Screen name="Battle" component={BattleStackNav} />
+          {/* <AppStack.Screen name="Deck" component={Deck} /> */}
         </AppStack.Navigator>
       ) : (
         <AuthStack.Navigator initialRouteName="AuthMenu" headerMode="none">

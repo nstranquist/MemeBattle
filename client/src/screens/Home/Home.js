@@ -2,13 +2,14 @@
 
 import React from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, View, Text, SafeAreaView, TouchableHighlight } from 'react-native'
+import { StyleSheet, View, Text, Button, SafeAreaView, TouchableOpacity } from 'react-native'
 
 import { logout } from '../../store/Auth'
 import { appColors } from '../../utils/app.colors'
 
 const Home = ({
-  navigation
+  navigation,
+  logout,
 }) => {
   
   
@@ -21,21 +22,26 @@ const Home = ({
           </Text>
         </View>
         <View style={styles.pageBody}>
-          <TouchableHighlight onPress={() => navigation.navigate("Battle")}>
-            <View style={styles.homeItem}>
+          <View style={styles.homeItem}>
+            <TouchableOpacity onPress={() => navigation.navigate("Battle")}>
               <Text style={styles.homeItemText}>Battle!</Text>
-            </View>
-          </TouchableHighlight>
-          <TouchableHighlight onPress={() => navigation.navigate("Battle")}>
-            <View style={styles.homeItem}>
+            </TouchableOpacity>
+          </View>
+          {/* <View style={styles.homeItem}>
+            <TouchableOpacity onPress={() => navigation.navigate("Deck")}>
               <Text style={styles.homeItemText}>Strategy</Text>
-            </View>
-          </TouchableHighlight>
-          <TouchableHighlight onPress={() => navigation.navigate("Battle")}>
-            <View style={styles.homeItem}>
+            </TouchableOpacity>
+          </View> */}
+          <View style={styles.homeItem}>
+            <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
               <Text style={styles.homeItemText}>Stats</Text>
-            </View>
-          </TouchableHighlight>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View>
+          <Button title="Logout" onPress={() => logout()}>
+            Logout
+          </Button>
         </View>
       </View>
     </SafeAreaView>
@@ -52,36 +58,44 @@ export const ConnectedHome = connect(
 )(Home)
 
 const styles = StyleSheet.create({
-  homeItem: {
-    borderColor: appColors.neonGreen,
-    borderWidth: 2,
-    backgroundColor: appColors.darkGray,
-    textAlign: "center",
-    paddingLeft: 10,
-    paddingRight: 10,
-    marginTop: 6,
-    marginBottom: 6,
-    // borderRadius: 3,
-  },
   pageContainer: {
-    flex: 1,
+    flex: 1, 
     backgroundColor: '#fff',
   },
   pageLayout: {
     flex: 1,
+    justifyContent: "space-evenly",
     paddingLeft: 10,
     paddingRight: 10,
-    paddingTop:20,
-    paddingBottom:20
+    paddingBottom:20,
   },
   headerText: {
-    fontSize: 32,
+    fontSize: 44,
     fontFamily: 'sans-serif',
     textAlign: 'center',
-    color: '#000',
-    opacity: .73,
+    color: appColors.darkGray,
   },
   pageBody: {
-
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  homeItem: {
+    borderColor: appColors.neonGreen,
+    borderWidth: 3,
+    backgroundColor: appColors.darkGray,
+    textAlign: "center",
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 6,
+    paddingBottom: 6,
+    marginTop: 6,
+    marginBottom: 6,
+    // borderRadius: 3,
+  },
+  homeItemText: {
+    color: appColors.light,
+    textAlign: "center",
+    fontSize: 20,
+    fontFamily: 'sans-serif'
   }
 })

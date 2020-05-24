@@ -1,6 +1,6 @@
-import { Battle } from './Battle'
+import { ConnectedBattle as Battle } from './Battle'
 import { BattleLobby } from './BattleLobby'
-import { BattleResults } from './BattleResults'
+import { ConnectedBattleResults as BattleResults } from './BattleResults'
 
 export {
   Battle,

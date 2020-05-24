@@ -12,8 +12,8 @@ import { appColors } from '../../utils/app.colors'
 import { login, clearErrors } from '../../store/Auth'
 
 const emptyLoginForm = {
-  username: "Nicostran",
-  password: "Demodemo"
+  username: "",
+  password: ""
 }
 
 const Login = ({
@@ -76,10 +76,10 @@ const Login = ({
           <View style={styles.loginInput}>
             <Text style={styles.inputLabel}>Password</Text>
             <TextInput
-              textContentType="password"
               style={styles.textInput}
               value={loginForm.password}
               onChangeText={text => handleChange(text, "password")}
+              secureTextEntry={true}
             />
           </View>
         </View>
@@ -152,6 +152,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingLeft: 10,
     paddingRight: 10,
+    fontSize: 18,
   },
   inputLabel: {
     fontSize:13,

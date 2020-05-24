@@ -10,9 +10,9 @@ import { signup, clearErrors } from '../../store/Auth'
 
 
 const emptySignUpForm = {
-  username: 'Nicostran',
-  password: 'Demodemo',
-  confirmPassword: 'Demodemo',
+  username: '',
+  password: '',
+  confirmPassword: '',
 }
 
 export const SignUp = ({
@@ -80,6 +80,7 @@ export const SignUp = ({
               style={[styles.textInput, { marginBottom: 4 }]}
               value={formData.password}
               onChangeText={text => handleChange(text, "password")}
+              secureTextEntry={true}
             />
           </View>
           <View style={styles.loginInput}>
@@ -88,6 +89,7 @@ export const SignUp = ({
               style={styles.textInput}
               value={formData.confirmPassword}
               onChangeText={text => handleChange(text, "confirmPassword")}
+              secureTextEntry={true}
             />
           </View>
         </View>
@@ -161,7 +163,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingLeft: 10,
     paddingRight: 10,
-    fontSize: 20
+    fontSize: 18
   },
   inputLabel: {
     fontSize:13,

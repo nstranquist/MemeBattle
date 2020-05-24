@@ -58,7 +58,7 @@ const Profile = ({
             ) : (
               <View style={styles.profileData}>
                 <View style={styles.dataHeader}>
-                  <Text style={{textAlign:"center", color: appColors.dark}}>Number of wins: {profileData.n}</Text>
+                  <Text style={{textAlign:"center", color: appColors.dark, fontSize: 16}}>Number of wins: {profileData.n}</Text>
                 </View>
                 <View style={styles.gifList}>
                   {profileData.wins.length > 0 ? profileData.wins.map((gifId, index) => {

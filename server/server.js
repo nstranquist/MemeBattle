@@ -11,9 +11,11 @@ const url = 'mongodb+srv://admin:AAvZTEwKEE5y5uSq@gifbattle-cvvpb.gcp.mongodb.ne
 const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology : true });
 
 // CORS
-app.use(cors({
-  origin: 'http://localhost:3001',
-}))
+// app.use(cors({
+//   origin: 'http://localhost:3001',
+// }))
+
+app.use(cors())
 
 // Parse Form Requests and JSON Requests
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -104,8 +106,20 @@ io.on('connection', (socket) => {
   console.log('A User Connected')
 
   socket.on('joinGame', socket => {
+    // Create Room and Wait for 3 Users
+    // Get Prompt
+    // Start Game with 30 Second Timer
 
+    // For Player Submit, Emit Status Update
+    // When All Players Ready, Go to Next Screen and Start 15s Timer
+      // If Player Times Out, Assign a Random GIF
+    // Wait for JudgeSubmit
+      // If Timeout, Randomly Select GIF
+    
   })
+
+
+
 
   socket.on('event', (data) => {
     console.log('socket event', data)
@@ -133,7 +147,7 @@ io.on('serverEvent', () => {
   console.log('socket event')
 });
 
-
+ 
 
 // Listen 
 // const port = process.env.PORT || 3000;

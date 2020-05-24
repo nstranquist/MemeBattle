@@ -1,5 +1,21 @@
-### Meme Battle
+## Meme Battle (Online)
 
-This is a monorepo.  
+<pitch here>
+  
+### Description
 
-Look inside /client for the mobile app
+Description
+
+### Technologies Used
+
+- react native
+- ...
+
+### To Run On Your Computer:
+
+1. git clone
+2. 
+
+### Reflections
+
+reflections here

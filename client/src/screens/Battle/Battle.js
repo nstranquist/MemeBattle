@@ -1,7 +1,7 @@
 /* src/screens/Battle/Battle.js */
 
-import React, { useState, useEffect } from 'react'
-import { StyleSheet, View, Text, } from 'react-native'
+import React from 'react'
+import { StyleSheet, SafeAreaView, View, Text, } from 'react-native'
 
 
 export const Battle = ({
@@ -10,17 +10,22 @@ export const Battle = ({
   
   
   return (
-    <View style={styles.pageLayout}>
-      <Text style={styles.headerText}>Battle</Text>
-    </View>
+    <SafeAreaView style={styles.pageContainer}>
+      <View style={styles.pageLayout}>
+        <Text style={styles.headerText}>Battle</Text>
+      </View>
+    </SafeAreaView>
   )
 }
 
 
 const styles = StyleSheet.create({
-  pageLayout: {
+  pageContainer: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  pageLayout: {
+    flex: 1,
   },
   headerText: {
     fontSize: 32,

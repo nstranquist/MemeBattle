@@ -12,14 +12,18 @@
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/bottom-tabs": "^5.4.7",
-    "@react-navigation/native": "^5.4.2",
+    "@react-navigation/core": "^5.8.2",
+    "@react-navigation/native": "^5.4.3",
     "@react-navigation/stack": "^5.3.9",
     "react": "16.11.0",
     "react-native": "0.62.2",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-reanimated": "^1.9.0",
     "react-native-safe-area-context": "^2.0.0",
-    "react-native-screens": "^2.8.0"
+    "react-native-screens": "^2.8.0",
+    "react-redux": "^7.2.0",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",

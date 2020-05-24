@@ -1,6 +1,6 @@
-import { Login } from './Login'
-import { SignUp } from '../Auth/SignUp'
-import { AuthMenu } from '../Auth/AuthMenu'
+import { ConnectedLogin as Login } from './Login'
+import { ConnectedSignUp as SignUp } from './SignUp'
+import { AuthMenu } from './AuthMenu'
 
 export {
   Login,
